@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00046.xsd ">
+	<AR-PACKAGES>
+		<AR-PACKAGE>
+			<SHORT-NAME>EABS_SWCs</SHORT-NAME>
+			<ELEMENTS>
+				<!-- Sensor actuator SWC to get the readings of the Lidar Sensor -->
+				<SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+					<SHORT-NAME>Lidar_SWC</SHORT-NAME>
+				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+				<!-- Sensor actuator SWC to get the readings of the Vehcile Speed Sensor -->
+				<SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+					<SHORT-NAME>VechicleSpeed_SWC</SHORT-NAME>
+				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+				<!-- ECU Abstraction SWC to access IO Driver (MCAL) -->
+				<ECU-ABSTRACTION-SW-COMPONENT-TYPE>
+					<SHORT-NAME>IOAbstract_SWC</SHORT-NAME>
+				</ECU-ABSTRACTION-SW-COMPONENT-TYPE>
+				<!-- This SWC includes the Pure Algorithm that outputs the control signals 
+					eg. Break signal -->
+				<!-- OR reports the DTCs to NVRAM through NV Block SWC Type -->
+				<APPLICATION-SW-COMPONENT-TYPE>
+					<SHORT-NAME>EABS_SWC</SHORT-NAME>
+				</APPLICATION-SW-COMPONENT-TYPE>
+				<!-- This SWC send the Calibration Param d that defines the critical 
+					distance -->
+				<PARAMETER-SW-COMPONENT-TYPE>
+					<SHORT-NAME>ClibrationParam_SWC</SHORT-NAME>
+				</PARAMETER-SW-COMPONENT-TYPE>
+				<SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+					<SHORT-NAME>WarinigLed_SWC</SHORT-NAME>
+				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+				<!-- This SWC used to access directly the ECU HW thats Slow Down the 
+					Vehicle -->
+				<!-- as it is a critical action and there is timming constaints and to 
+					ensure the response time -->
+				<COMPLEX-DEVICE-DRIVER-SW-COMPONENT-TYPE>
+					<SHORT-NAME>Breaking_SWC</SHORT-NAME>
+				</COMPLEX-DEVICE-DRIVER-SW-COMPONENT-TYPE>
+				<NV-BLOCK-SW-COMPONENT-TYPE>
+					<SHORT-NAME>RecordDTCs_SWC</SHORT-NAME>
+				</NV-BLOCK-SW-COMPONENT-TYPE>
+				<SERVICE-SW-COMPONENT-TYPE>
+					<SHORT-NAME>DiagService_SWC</SHORT-NAME>
+				</SERVICE-SW-COMPONENT-TYPE>
+				
+			</ELEMENTS>
+		</AR-PACKAGE>
+
+	</AR-PACKAGES>
+
+</AUTOSAR>
