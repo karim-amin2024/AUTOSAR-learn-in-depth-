@@ -9,14 +9,41 @@
 				<!-- Sensor actuator SWC to get the readings of the Lidar Sensor -->
 				<SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 					<SHORT-NAME>Lidar_SWC</SHORT-NAME>
+					<PORTS>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>LidarDataRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/LidarDataSRInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+					</PORTS>
 				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 				<!-- Sensor actuator SWC to get the readings of the Vehcile Speed Sensor -->
 				<SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 					<SHORT-NAME>VechicleSpeed_SWC</SHORT-NAME>
+					<PORTS>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>SpeedDataRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/SpeedDataSRInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+					</PORTS>
 				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 				<!-- ECU Abstraction SWC to access IO Driver (MCAL) -->
 				<ECU-ABSTRACTION-SW-COMPONENT-TYPE>
 					<SHORT-NAME>IOAbstract_SWC</SHORT-NAME>
+					<PORTS>
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>LidarDataPP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/LidarDataSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
+
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>SpeedDataPP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/SpeedDataSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
+					</PORTS>
 				</ECU-ABSTRACTION-SW-COMPONENT-TYPE>
 				<!-- This SWC includes the Pure Algorithm that outputs the control signals 
 					eg. Break signal -->
@@ -45,7 +72,7 @@
 				<SERVICE-SW-COMPONENT-TYPE>
 					<SHORT-NAME>DiagService_SWC</SHORT-NAME>
 				</SERVICE-SW-COMPONENT-TYPE>
-				
+
 			</ELEMENTS>
 		</AR-PACKAGE>
 
