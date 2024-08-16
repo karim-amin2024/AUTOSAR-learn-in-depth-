@@ -15,6 +15,11 @@
 							<REQUIRED-INTERFACE-TREF
 								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/LidarDataSRInterface</REQUIRED-INTERFACE-TREF>
 						</R-PORT-PROTOTYPE>
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>DistanceSignalPP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/LidarDataSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
 					</PORTS>
 				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 				<!-- Sensor actuator SWC to get the readings of the Vehcile Speed Sensor -->
@@ -26,6 +31,11 @@
 							<REQUIRED-INTERFACE-TREF
 								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/SpeedDataSRInterface</REQUIRED-INTERFACE-TREF>
 						</R-PORT-PROTOTYPE>
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>SpeedSignalPP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/SpeedDataSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
 					</PORTS>
 				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 				<!-- ECU Abstraction SWC to access IO Driver (MCAL) -->
@@ -50,14 +60,70 @@
 				<!-- OR reports the DTCs to NVRAM through NV Block SWC Type -->
 				<APPLICATION-SW-COMPONENT-TYPE>
 					<SHORT-NAME>EABS_SWC</SHORT-NAME>
+					<PORTS>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>DistanceSignalRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/LidarDataSRInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>SpeedSignalRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/SpeedDataSRInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>clibrationDistanceRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="PARAMETER-INTERFACE">SWCs_Interfaces/CriticalDistancesSRInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>DiagServiceRP</SHORT-NAME>
+							<CLIENT-SERVER-ANNOTATIONS>
+								<CLIENT-SERVER-ANNOTATION>
+									<OPERATION-REF DEST="CLIENT-SERVER-OPERATION">SWCs_Interfaces/DiagServiceInterface/Diag_OP1</OPERATION-REF>
+								</CLIENT-SERVER-ANNOTATION>
+							</CLIENT-SERVER-ANNOTATIONS>
+						</R-PORT-PROTOTYPE>
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>NVDataPP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="NV-DATA-INTERFACE">SWCs_Interfaces/permenentDataInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>breakSignalPP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/breakSignalSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>warningSignalPP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/warningSignalSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
+
+					</PORTS>
 				</APPLICATION-SW-COMPONENT-TYPE>
 				<!-- This SWC send the Calibration Param d that defines the critical 
 					distance -->
 				<PARAMETER-SW-COMPONENT-TYPE>
 					<SHORT-NAME>ClibrationParam_SWC</SHORT-NAME>
+					<PORTS>
+						<!-- This provider port to provide the clibration distances -->
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>clibrationDistancePP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="PARAMETER-INTERFACE">SWCs_Interfaces/CriticalDistancesSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
+					</PORTS>
 				</PARAMETER-SW-COMPONENT-TYPE>
 				<SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 					<SHORT-NAME>WarinigLed_SWC</SHORT-NAME>
+					<PORTS>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>warningSignalRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/warningSignalSRInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+					</PORTS>
 				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
 				<!-- This SWC used to access directly the ECU HW thats Slow Down the 
 					Vehicle -->
@@ -65,9 +131,31 @@
 					ensure the response time -->
 				<COMPLEX-DEVICE-DRIVER-SW-COMPONENT-TYPE>
 					<SHORT-NAME>Breaking_SWC</SHORT-NAME>
+					<PORTS>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>breakSignalRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">SWCs_Interfaces/breakSignalSRInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+					</PORTS>
 				</COMPLEX-DEVICE-DRIVER-SW-COMPONENT-TYPE>
 				<NV-BLOCK-SW-COMPONENT-TYPE>
 					<SHORT-NAME>RecordDTCs_SWC</SHORT-NAME>
+					<PORTS>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>DTCsRP</SHORT-NAME>
+							<REQUIRED-INTERFACE-TREF
+								DEST="NV-DATA-INTERFACE">SWCs_Interfaces/permenentDataInterface</REQUIRED-INTERFACE-TREF>
+						</R-PORT-PROTOTYPE>
+						<R-PORT-PROTOTYPE>
+							<SHORT-NAME>NVMoperationRP</SHORT-NAME>
+							<CLIENT-SERVER-ANNOTATIONS>
+								<CLIENT-SERVER-ANNOTATION>
+									<OPERATION-REF DEST="CLIENT-SERVER-OPERATION">SWCs_Interfaces/NVMServiceInterface/NVM_OP1</OPERATION-REF>
+								</CLIENT-SERVER-ANNOTATION>
+							</CLIENT-SERVER-ANNOTATIONS>
+						</R-PORT-PROTOTYPE>
+					</PORTS>
 				</NV-BLOCK-SW-COMPONENT-TYPE>
 				<SERVICE-SW-COMPONENT-TYPE>
 					<SHORT-NAME>DiagService_SWC</SHORT-NAME>
