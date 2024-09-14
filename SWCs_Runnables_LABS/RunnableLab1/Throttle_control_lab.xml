@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00046.xsd ">
+	<AR-PACKAGES>
+		<AR-PACKAGE>
+			<SHORT-NAME>ThrottleControlLab</SHORT-NAME>
+			<ELEMENTS>
+				<!-- Interfaces definition -->
+				<SENDER-RECEIVER-INTERFACE>
+					<SHORT-NAME>ThrottleControlSRInterface</SHORT-NAME>
+					<IS-SERVICE>0</IS-SERVICE>
+					<DATA-ELEMENTS>
+						<VARIABLE-DATA-PROTOTYPE>
+							<SHORT-NAME>Throttle_cmd</SHORT-NAME>
+							<TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/AUTOSAR_PlatformTypes/ImplementationDataTypes/uint32</TYPE-TREF>
+						</VARIABLE-DATA-PROTOTYPE>
+					</DATA-ELEMENTS>
+				</SENDER-RECEIVER-INTERFACE>
+				<!-- Application SWCs definition -->
+				<SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+					<SHORT-NAME>ThrottleControlSWCType</SHORT-NAME>
+					<!-- Application SWCs Ports definition -->
+					<PORTS>
+						<P-PORT-PROTOTYPE>
+							<SHORT-NAME>SR_ThrottleCmd_PP</SHORT-NAME>
+							<PROVIDED-INTERFACE-TREF
+								DEST="SENDER-RECEIVER-INTERFACE">/ThrottleControlSRInterface</PROVIDED-INTERFACE-TREF>
+						</P-PORT-PROTOTYPE>
+					</PORTS>
+					<INTERNAL-BEHAVIORS>
+						<SWC-INTERNAL-BEHAVIOR>
+							<SHORT-NAME>ThrottleControlBehavior</SHORT-NAME>
+							<EVENTS>
+								<TIMING-EVENT>
+									<SHORT-NAME>ThrottleControlEvent_1ms</SHORT-NAME>
+									<START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/ThrottleControlSWCType/ThrottleControlBehavior/SendThrottleControlSignalRunabble_1ms</START-ON-EVENT-REF>
+									<PERIOD>0.001</PERIOD>
+								</TIMING-EVENT>
+							</EVENTS>
+							<!-- Application SWCs Runabble definitions -->
+							<RUNNABLES>
+								<RUNNABLE-ENTITY>
+									<SHORT-NAME>SendThrottleControlSignalRunabble_1ms</SHORT-NAME>
+									<!-- the mini delay time of two consecutive calls -->
+									<MINIMUM-START-INTERVAL>0.0</MINIMUM-START-INTERVAL>
+									<!-- is this runnable can be invoked in parallel -->
+									<CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+									<DATA-WRITE-ACCESSS>
+										<VARIABLE-ACCESS>
+											<SHORT-NAME>ThrottleControlAccess</SHORT-NAME>
+											<ACCESSED-VARIABLE>
+												<AUTOSAR-VARIABLE-IREF>
+													<PORT-PROTOTYPE-REF
+														DEST="P-PORT-PROTOTYPE">/ThrottleControlSWCType/SR_ThrottleCmd_PP</PORT-PROTOTYPE-REF>
+													<TARGET-DATA-PROTOTYPE-REF
+														DEST="VARIABLE-DATA-PROTOTYPE">/ThrottleControlSRInterface/Throttle_cmd</TARGET-DATA-PROTOTYPE-REF>
+												</AUTOSAR-VARIABLE-IREF>
+											</ACCESSED-VARIABLE>
+										</VARIABLE-ACCESS>
+									</DATA-WRITE-ACCESSS>
+									<SYMBOL>SeT_CMD</SYMBOL>
+								</RUNNABLE-ENTITY>
+							</RUNNABLES>
+						</SWC-INTERNAL-BEHAVIOR>
+					</INTERNAL-BEHAVIORS>
+				</SENSOR-ACTUATOR-SW-COMPONENT-TYPE>
+			</ELEMENTS>
+		</AR-PACKAGE>
+	</AR-PACKAGES>
+</AUTOSAR>
